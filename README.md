@@ -21,6 +21,15 @@ and install all the dependencies:
 npm install
 ```
 
+Remember to change the file .env variables values according to your needs.
+```bash
+ASSISTANT_VERSION=YYYY-MM-DD <current_date>
+ASSISTANT_APIKEY=<watsom_assistant_apikey>
+ASSISTANT_URL=<watsom_assistant_url>
+ASSISTANT_ID=<watsom_assistant_id>
+
+TELEGRAM_TOKEN="" <telegram_bot_token>
+```
 ### To run the project
 ```bash
 npm start
