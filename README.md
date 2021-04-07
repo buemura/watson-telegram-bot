@@ -21,7 +21,7 @@ and install all the dependencies:
 npm install
 ```
 
-Remember to change the file .env variables values according to your needs.
+Remember to change the file **.env** variables values according to your needs.
 ```bash
 ASSISTANT_VERSION=YYYY-MM-DD <current_date>
 ASSISTANT_APIKEY=<watsom_assistant_apikey>
