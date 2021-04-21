@@ -50,3 +50,6 @@ After the application is started, send the following messages to the bot.
 - Status
 - Status consulta
 - Obrigado
+
+## External link
+- Youtube video (Portuguese): [YouTube](https://www.youtube.com/watch?v=nRghqU6htCs)
