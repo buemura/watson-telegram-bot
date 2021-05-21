@@ -3,6 +3,7 @@ const { IamAuthenticator } = require("ibm-watson/auth");
 const { Telegraf } = require("telegraf");
 require("dotenv").config();
 
+// Connecting to Watson Assistant
 const assistant = new AssistantV2({
   version: process.env.ASSISTANT_VERSION,
   authenticator: new IamAuthenticator({
@@ -11,9 +12,10 @@ const assistant = new AssistantV2({
   serviceUrl: process.env.ASSISTANT_URL,
 });
 
+// Creating a telegram bot object
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 
-function watsonResponse(ctx) {
+const watsonResponse = (ctx) => {
   let userInput = ctx.update.message.text;
 
   assistant
@@ -27,20 +29,24 @@ function watsonResponse(ctx) {
     .then((res) => {
       showMessage(ctx, res);
     });
-}
+};
 
-function showMessage(ctx, res) {
-  if (res.result.output.intents[0].intent === "saudar") {
-    ctx.reply(res.result.output.generic[0].title);
-  } else if (res.result.output.generic[0].title) {
-    ctx.reply(`${res.result.output.generic[0].title} \n
-    Consulta - ${res.result.output.generic[0].options[0].label} \n
-    Exame    - ${res.result.output.generic[0].options[1].label} \n
-    Retorno  - ${res.result.output.generic[0].options[2].label}`);
-  } else {
-    ctx.reply(res.result.output.generic[0].text);
+const showMessage = (ctx, res) => {
+  const response = res.result.output.generic[0];
+  console.log(response);
+
+  if (response.response_type === "text") {
+    const message = response.text;
+    ctx.reply(message);
+  } else if (response.response_type === "option") {
+    let message = `${response.title}\n\n`;
+
+    for (let i = 0; i < response.options.length; i += 1) {
+      message += `∘ ${response.options[i].label}\n`;
+    }
+    ctx.reply(message);
   }
-}
+};
 
 bot.on("text", (ctx) => {
   watsonResponse(ctx);
