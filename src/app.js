@@ -57,4 +57,4 @@ bot.on("text", (ctx) => {
 });
 
 // Start the Telegram bot
-bot.launch();
+bot.launch(console.log("\x1b[36m%s\x1b[0m", "Listening to Telegram Bot..."));
