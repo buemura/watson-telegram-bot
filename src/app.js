@@ -15,6 +15,8 @@ const assistant = new AssistantV2({
 // Creating a telegram bot object
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 
+// Middleware between Watson Assistant and Telegram
+// Send inputs to Watson Assistant, receive the response and return to Telegram
 const watsonResponse = (ctx) => {
   let userInput = ctx.update.message.text;
 
@@ -31,6 +33,7 @@ const watsonResponse = (ctx) => {
     });
 };
 
+// Function that manage the response received from Watson Assistant
 const showMessage = (ctx, res) => {
   const response = res.result.output.generic[0];
   console.log(response);
@@ -48,8 +51,10 @@ const showMessage = (ctx, res) => {
   }
 };
 
+// Listen to Telegram Bot inputs
 bot.on("text", (ctx) => {
   watsonResponse(ctx);
 });
 
+// Start the Telegram bot
 bot.launch();
